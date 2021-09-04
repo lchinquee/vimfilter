@@ -66,6 +66,13 @@ const userController = {
     // Delete a user
     deleteUser({ params }, res) {
         User.findOneAndDelete({ _id: params.id })
+        .then(({ _id }) => {
+            return User.findOneAndUpdate(
+                { _id: params.thoughtId },
+                { $pull: { thoughts: { thoughtId: params.thoughtId } } },
+                { new: true }
+            );
+        })
         .then(dbUserData => {
             if (!dbUserData) {
                 res.status(404).json({ message: 'User was not found' });
@@ -99,7 +106,7 @@ const userController = {
             { $pull: { friends: { friendId: params.friendId } } },
             { new: true }
         )
-        .then(dbPizzaData => res.json(dbPizzaData))
+        .then(dbUserData => res.json(dbUserData))
         .catch(err => res.json(err));
     }
 };
