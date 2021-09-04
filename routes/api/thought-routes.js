@@ -8,20 +8,30 @@ const {
     deleteThought,
     newReaction,
     deleteReaction
-} = require('../../controllers/user-controller');
+} = require('../../controllers/thought-controller');
 
 // Setup url locations for requests
 router
-    .route('/api/thoughts')
-    .get(getAllThoughts)
+    .route('/')
+    .get(getAllThoughts);
+
+router
+    .route('/:id')
     .get(getThoughtById)
-    .post(createThought)
     .put(updateThought)
     .delete(deleteThought);
 
 router
-    .route('/api/thoughts/:thoughtId/reactions')
-    .post(newReaction)
+    .route('/:userId')
+    .post(createThought);
+
+
+router
+    .route('/:thoughtId/reactions')
+    .post(newReaction);
+
+router
+    .route('/:thoughtId/reactions/:reactionId')
     .delete(deleteReaction);
 
 module.exports = router;

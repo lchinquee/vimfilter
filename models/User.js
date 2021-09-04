@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { isEmail } = require('validator');
+const validator = require('validator');
 
 const UserSchema = new Schema(
     {
@@ -13,16 +13,23 @@ const UserSchema = new Schema(
             type: String,
             unique: true,
             required: 'Email address is required',
-            validate: [ isEmail, 'Please enter a valid email address']
+            validate: {
+                validator: validator.isEmail,
+                message: 'Must enter a valid email address!'
+            }
         },
-        thoughts: {
-            type: Schema.Types.ObjectId,
-            ref: 'Thought'
-        },
-        friends: {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        }
+        thoughts: [        
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Thought'
+            }
+        ],
+        friends: [        
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        ]
     },
     {
         toJSON: {

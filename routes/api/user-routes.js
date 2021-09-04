@@ -12,15 +12,18 @@ const {
 
 // Setup url locations for requests
 router
-    .route('/api/users')
+    .route('/')
     .get(getAllUsers)
+    .post(createUser);
+
+router
+    .route('/:id')
     .get(getUserById)
-    .post(createUser)
     .put(updateUser)
     .delete(deleteUser);
 
 router
-    .route('/api/users/:userId/friends/friendId')
+    .route('/:id/friends/:friendId')
     .post(newFriend)
     .delete(deleteFriend);
 
