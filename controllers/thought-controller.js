@@ -44,12 +44,12 @@ const thoughtController = {
     },
 
     // Create a new thought
-    createThought({ body }, res) {
+    createThought({ params, body }, res) {
         Thought.create(body)
             .then(({ _id }) => {
                 return User.findOneAndUpdate(
                     { _id: params.userId },
-                    { $push: { thoughts: thoughtId } },
+                    { $push: { thoughts: _id } },
                     { new: true }
                 );
             })
@@ -58,7 +58,7 @@ const thoughtController = {
                     res.status(404).json({ message: 'Could not find a thought with this ID'});
                     return;
                 }
-                res.json(dbPizzaData);
+                res.json(dbThoughtData);
             })
             .catch(err => res.json(err));
     },
@@ -78,7 +78,7 @@ const thoughtController = {
 
     // Delete a thought
     deleteThought({ params }, res) {
-        User.findOneAndDelete({ _id: params.id })
+        Thought.findOneAndDelete({ _id: params.id })
         .then(dbThoughtData => {
             if (!dbThoughtData) {
                 res.status(404).json({ message: 'Could not find a thought with this ID' });
@@ -93,7 +93,7 @@ const thoughtController = {
     newReaction({ params, body }, res) { 
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
-            { $push: { reactions: params.reactionId } },
+            { $push: { reactions: body} },
             { new: true, runValidators: true }
         )
         .then(dbThoughtData => {
