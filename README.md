@@ -46,10 +46,10 @@
   ## Video Links
 
   ### Video Link to User Model
-  [Link to User Video]()
+  [Link to User Video](https://drive.google.com/file/d/1BnaA3fMeJpGe03XMLR3n4FZ_w-4c8cnH/view)
 
   ### Video Link to Thought Model
-  [Link to Thoughts Video]()
+  [Link to Thoughts Video](https://drive.google.com/file/d/1yWzfODfj6119OFfhRvitjTBHsiW363pW/view)
   
   # References
   Rutgers Coding Bootcamp class materials, online documentation and TA resources.
